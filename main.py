@@ -40,6 +40,31 @@ def deal_start():
     
     print(f"Dealer's first card is: {dealer_hand[0]}")
     print(f"Your hand is: {player_hand}, with a current score of {player_score}")
+    player_choice()
+  
+    
+
+
+def hit():
+    player_hand.append(random.choice(cards))
+    player_score = sum(player_hand)
+    if player_score > 21:
+        print(f"BUST! Score is {player_score} which is over 21. Game over")
+    else:
+      print(f"Your hand is: {player_hand}, with a current score of {player_score}")
+      player_choice()
+
+def player_choice():
+    hit_choice = input("Type 'h' to Hit and get another card OR 's' to Stand\n")
+    if(hit_choice == 'h'):
+      print("You decided to hit")
+      hit()
+    elif(hit_choice == 's'):
+      print("You decided to stand")
+    
+
+
+    
     
     
 game_start()
