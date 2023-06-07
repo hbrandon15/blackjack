@@ -10,3 +10,15 @@
 ## The cards in the list have equal probability of being drawn.
 ## Cards are not removed from the deck as they are drawn.
 ## The computer is the dealer.
+
+def game_start():
+    user_ready = input("Would you like to play a game of Blackjack? Type 'y' for yes or 'n' for no. ").lower()
+    if(user_ready == 'y'):
+        print("Game starting")
+    elif(user_ready == 'n'):
+        print("Maybe next time!")
+    else:
+        print("Invalid input!")
+        game_start()
+
+game_start()
