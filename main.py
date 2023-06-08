@@ -14,10 +14,7 @@ import random
 ## The computer is the dealer.
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
-dealer_hand = []
-player_hand = []
-dealer_score = 0
-player_score = 0
+
 
 def calculate_score(card_hand):
    """Calculate the total score of the given hand"""
@@ -30,7 +27,7 @@ def calculate_score(card_hand):
     return sum(card_hand)
    return total_score
 
-def compare(d_score = dealer_score, p_score = player_score):
+def compare(d_score, p_score):
   """Compare scores between the dealer and player"""
   
   if d_score == p_score:
@@ -39,15 +36,7 @@ def compare(d_score = dealer_score, p_score = player_score):
     print(f"Dealer score is {d_score} which is greater than {p_score}! Dealer wins!")
   elif p_score > d_score or d_score > 21: 
     print(f"Player score is {p_score} which is greater than {d_score}! Player wins!")
-    
-def reset_hand(given_hand):
-  """Clears given hand"""
-  return given_hand.clear
-
-def reset_score(given_score):
-  """Clears given score"""
-  given_score = 0
-  return given_score
+  
   
   
 
@@ -62,15 +51,13 @@ def deal_card(hand):
 def game_restart():
   """Prompts the user to see if they want to restart the game"""
   
-  restart = input("Would you like to restart the game? Type 'y' for yes or 'n' for no.").lower()
+  restart = input("Would you like to restart the game? Type 'y' for yes or 'n' for no.\n").lower()
   if restart == 'y':
-    reset_hand(player_hand)
-    reset_hand(dealer_hand)
-    reset_score(player_score)
-    reset_score(dealer_score)
     game_start()
   elif restart == 'n':
     print("Thank you for playing!")
+    
+    
   else: 
     print("Please select a valid response")
     game_restart()
@@ -78,6 +65,10 @@ def game_restart():
 def game_start():
   os.system('cls' if os.name == 'nt' else 'clear')
   print(art.logo)
+  dealer_hand = []
+  player_hand = []
+  dealer_score = 0
+  player_score = 0
   user_ready = input("Would you like to play a game of Blackjack? Type 'y' for yes or 'n' for no. \n").lower()
   if(user_ready == 'y'):
     print("Game starting...")
@@ -88,7 +79,7 @@ def game_start():
     print(f"Dealer's first card: {dealer_hand[0]}")
     player_score = calculate_score(player_hand)
     if player_score > 21 or player_score == 0:
-      print("Game over!")
+      print(f"Player score is {player_score}! Game over!")
       game_restart()
     print(f"Your current hand: {player_hand} with a current score of {player_score}")
     
@@ -98,9 +89,10 @@ def game_start():
       deal_card(player_hand)
       player_score = calculate_score(player_hand)
       if player_score > 21 or player_score == 0:
-        print("Game over!")
+        print(f"Player score is {player_score}! Game over!")
         game_restart()
-      print(f"Your current hand: {player_hand} with a current score of {player_score}")
+      else:
+        print(f"Your current hand: {player_hand} with a current score of {player_score}")
 
     elif(hit_choice == 's'):
       print("You decided to stand")
