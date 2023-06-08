@@ -32,9 +32,9 @@ def compare(d_score, p_score):
   if d_score == p_score:
     print("Its a DRAW!")
   elif d_score > p_score or p_score > 21:
-    print(f"Dealer score is {d_score} which is greater than Player's score of {p_score}! Dealer wins!")
+    print(f"Dealer score is {d_score}. Player's score of {p_score}! Dealer wins!")
   elif p_score > d_score or d_score > 21: 
-    print(f"Player score is {p_score} which is greater than Dealer's score of {d_score}! Player wins!")
+    print(f"Player score is {p_score}. Dealer's score of {d_score}! Player wins!")
   
   
   
@@ -93,10 +93,10 @@ def game_start():
           deal_card(player_hand)
         elif(hit_choice == 's'):
           break
-    print("You decided to stand")
+   
     dealer_score = calculate_score(dealer_hand)
     if dealer_score < 17:
-        while dealer_score < 17:
+        while dealer_score != 0 and dealer_score < 17:
           deal_card(dealer_hand)
           dealer_score = calculate_score(dealer_hand)
     if dealer_score > 21:
