@@ -20,6 +20,7 @@ dealer_score = 0
 player_score = 0
 
 def deal_card(hand):
+   """Appends a new random card into the given hand"""
    new_card = random.choice(cards)
    hand.append(new_card)
    return hand
@@ -28,6 +29,7 @@ def deal_card(hand):
     
 
 def calculate_score(card_hand):
+   """Calculate the total score of the given hand"""
    if 11 in card_hand and 10 in card_hand:
       return 0
    total_score = sum(card_hand)
@@ -38,6 +40,8 @@ def calculate_score(card_hand):
    return total_score
 
 def compare(d_score = dealer_score, p_score = player_score):
+  """Compare scores between the dealer and player"""
+  
   if d_score == p_score:
     print("Its a DRAW!")
   elif d_score > p_score or p_score > 21:
