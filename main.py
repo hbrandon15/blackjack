@@ -19,24 +19,6 @@ player_hand = []
 dealer_score = 0
 player_score = 0
 
-def game_start():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print(art.logo)
-    user_ready = input("Would you like to play a game of Blackjack? Type 'y' for yes or 'n' for no. \n").lower()
-    if(user_ready == 'y'):
-        print("Game starting...")
-        deal_card(player_hand)
-        deal_card(player_hand)
-        deal_card(dealer_hand)
-        deal_card(dealer_hand)
-        print(f"Dealer's first card: {dealer_hand[0]}")
-        print(f"Your current hand: {player_hand}")
-    elif(user_ready == 'n'):
-        print("Maybe next time!")
-    else:
-        print("Invalid input!")
-        game_start()
-
 def deal_card(hand):
    new_card = random.choice(cards)
    hand.append(new_card)
@@ -46,7 +28,7 @@ def deal_card(hand):
     
 
 def calculate_score(card_hand):
-   if 11 and 10 in card_hand:
+   if 11 in card_hand and 10 in card_hand:
       return 0
    total_score = sum(card_hand)
    if total_score > 21 and 11 in card_hand:
@@ -55,55 +37,57 @@ def calculate_score(card_hand):
     return sum(card_hand)
    return total_score
 
+def compare(d_score = dealer_score, p_score = player_score):
+  if d_score == p_score:
+    print("Its a DRAW!")
+  elif d_score > p_score or p_score > 21:
+    print(f"Dealer score is {d_score} which is greater than {p_score}! Dealer wins!")
+  elif p_score > d_score or d_score > 21: 
+    print(f"Player score is {p_score} which is greater than {d_score}! Player wins!")
+
+def game_start():
+  os.system('cls' if os.name == 'nt' else 'clear')
+  print(art.logo)
+  user_ready = input("Would you like to play a game of Blackjack? Type 'y' for yes or 'n' for no. \n").lower()
+  if(user_ready == 'y'):
+    print("Game starting...")
+    deal_card(player_hand)
+    deal_card(player_hand)
+    deal_card(dealer_hand)
+    deal_card(dealer_hand)
+    print(f"Dealer's first card: {dealer_hand[0]}")
+    player_score = calculate_score(player_hand)
+    if player_score > 21 or player_score == 0:
+      print("Game over!")
+    print(f"Your current hand: {player_hand} with a current score of {player_score}")
+    
+    hit_choice = input("Type 'h' to Hit and get another card OR 's' to Stand\n")
+    if(hit_choice == 'h'):
+      print("You decided to hit")
+      deal_card(player_hand)
+      player_score = calculate_score(player_hand)
+      if player_score > 21 or player_score == 0:
+        print("Game over!")
+      print(f"Your current hand: {player_hand} with a current score of {player_score}")
+
+    elif(hit_choice == 's'):
+      print("You decided to stand")
+      dealer_score = calculate_score(dealer_hand)
+      if dealer_score < 17:
+         while dealer_score < 17:
+            deal_card(dealer_hand)
+            dealer_score = calculate_score(dealer_hand)
+      if dealer_score > 21:
+        dealer_score = 0
+      compare(dealer_score,player_score)
+      print("Game is over")
+    
+  elif(user_ready == 'n'):
+      print("Maybe next time!")
+  else:
+      print("Invalid input!")
+      game_start()
+
 game_start()
-
-# def hit():
-#     """Draws another card and totals sum"""
-#     player_hand.append(random.choice(cards))
-#     player_score = sum(player_hand)
-#     if player_score > 21:
-#         print(f"BUST! Score is {player_score} which is over 21. Game over")
-#         player_score = 0
-#     else:
-#       print(f"Your hand is: {player_hand}, with a current score of {player_score}")
-#       print(f"Dealer's first card is: {dealer_hand[0]}")
-#       player_choice()
-
-# def player_choice():
-#     """Gives option to the player on drawing another card or standing"""
-
-#     hit_choice = input("Type 'h' to Hit and get another card OR 's' to Stand\n")
-#     if(hit_choice == 'h'):
-#       print("You decided to hit")
-#       hit()
-#     elif(hit_choice == 's'):
-#       print("You decided to stand")
-#       stand(dealer_hand, dealer_score)
-
-    
-
-
-# def stand(dealer_hand, dealer_score):
-#    print(f"Dealer has {dealer_hand}")
-#    dealer_hand.append(random.choice(cards))
-#    if(dealer_score > 21): 
-#       print("Player WINS!")
-#    elif(dealer_score == player_score):
-#     print("Draw!")
-#    elif(dealer_score > player_score):
-#     print("Dealer wins!")
-#    else:
-#     print("Player wins!")
-
-
-      
    
-    
-    
-# game_start()
-
-
-
-
-# TODO: #3 Create a function for stand. This is when the dealer will reveal the cards and score. They will hit if needed. 
 
