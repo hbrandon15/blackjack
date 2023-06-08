@@ -48,6 +48,18 @@ def compare(d_score = dealer_score, p_score = player_score):
     print(f"Dealer score is {d_score} which is greater than {p_score}! Dealer wins!")
   elif p_score > d_score or d_score > 21: 
     print(f"Player score is {p_score} which is greater than {d_score}! Player wins!")
+    
+def game_restart():
+  """Prompts the user to see if they want to restart the game"""
+  
+  restart = input("Would you like to restart the game? Type 'y' for yes or 'n' for no.").lower()
+  if restart == 'y':
+    game_start()
+  elif restart == 'n':
+    print("Thank you for playing!")
+  else: 
+    print("Please select a valid response")
+    game_restart()
 
 def game_start():
   os.system('cls' if os.name == 'nt' else 'clear')
