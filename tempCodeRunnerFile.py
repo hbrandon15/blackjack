@@ -1,0 +1,1 @@
+print(calculate_score(test_hand2))

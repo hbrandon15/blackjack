@@ -32,26 +32,28 @@ def game_start():
         print("Invalid input!")
         game_start()
 
-def deal_start():
-    for range in(0,2):
-      dealer_hand.append(random.choice(cards))
-      player_hand.append(random.choice(cards))
+def deal_card():
+   new_card = random.choice(cards)
+   return new_card
+  
     
     
-    print(f"Dealer's first card is: {dealer_hand[0]}")
-    print(f"Your hand is: {player_hand}")
 
 def calculate_score(card_hand):
    if 11 and 10 in card_hand:
       return 0
-   else: 
-      return sum(card_hand)
+   total_score = sum(card_hand)
+   if total_score > 21 and 11 in card_hand:
+    card_hand.remove(11)
+    card_hand.append(1)
+    return sum(card_hand)
+   return total_score
 
 # test_hand1 = [10, 11]
-# test_hand2 = [4,6]
+test_hand2 = [11,6,5]
 
 # print(calculate_score(test_hand1))
-# print(calculate_score(test_hand2))
+print(calculate_score(test_hand2))
   
 
 # def hit():
