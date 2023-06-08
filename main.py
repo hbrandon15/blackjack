@@ -19,15 +19,6 @@ player_hand = []
 dealer_score = 0
 player_score = 0
 
-def deal_card(hand):
-   """Appends a new random card into the given hand"""
-   new_card = random.choice(cards)
-   hand.append(new_card)
-   return hand
-  
-    
-    
-
 def calculate_score(card_hand):
    """Calculate the total score of the given hand"""
    if 11 in card_hand and 10 in card_hand:
@@ -49,11 +40,34 @@ def compare(d_score = dealer_score, p_score = player_score):
   elif p_score > d_score or d_score > 21: 
     print(f"Player score is {p_score} which is greater than {d_score}! Player wins!")
     
+def reset_hand(given_hand):
+  """Clears given hand"""
+  return given_hand.clear
+
+def reset_score(given_score):
+  """Clears given score"""
+  given_score = 0
+  return given_score
+  
+  
+
+def deal_card(hand):
+   """Appends a new random card into the given hand"""
+   new_card = random.choice(cards)
+   hand.append(new_card)
+   return hand
+  
+
+# BUG: #4 Game restarts with the previous hand
 def game_restart():
   """Prompts the user to see if they want to restart the game"""
   
   restart = input("Would you like to restart the game? Type 'y' for yes or 'n' for no.").lower()
   if restart == 'y':
+    reset_hand(player_hand)
+    reset_hand(dealer_hand)
+    reset_score(player_score)
+    reset_score(dealer_score)
     game_start()
   elif restart == 'n':
     print("Thank you for playing!")
@@ -75,6 +89,7 @@ def game_start():
     player_score = calculate_score(player_hand)
     if player_score > 21 or player_score == 0:
       print("Game over!")
+      game_restart()
     print(f"Your current hand: {player_hand} with a current score of {player_score}")
     
     hit_choice = input("Type 'h' to Hit and get another card OR 's' to Stand\n")
@@ -84,6 +99,7 @@ def game_start():
       player_score = calculate_score(player_hand)
       if player_score > 21 or player_score == 0:
         print("Game over!")
+        game_restart()
       print(f"Your current hand: {player_hand} with a current score of {player_score}")
 
     elif(hit_choice == 's'):
@@ -97,6 +113,7 @@ def game_start():
         dealer_score = 0
       compare(dealer_score,player_score)
       print("Game is over")
+      game_restart()
     
   elif(user_ready == 'n'):
       print("Maybe next time!")
