@@ -105,8 +105,8 @@ def game_start():
     if dealer_score > 21:
       dealer_score = 0
     compare(dealer_score,player_score)
-    print("Game is over")
     game_restart()
+
     
   elif(user_ready == 'n'):
       print("Maybe next time!")
