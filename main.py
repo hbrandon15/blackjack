@@ -25,16 +25,22 @@ def game_start():
     user_ready = input("Would you like to play a game of Blackjack? Type 'y' for yes or 'n' for no. \n").lower()
     if(user_ready == 'y'):
         print("Game starting...")
-        deal_start()
+        deal_card(player_hand)
+        deal_card(player_hand)
+        deal_card(dealer_hand)
+        deal_card(dealer_hand)
+        print(f"Dealer's first card: {dealer_hand[0]}")
+        print(f"Your current hand: {player_hand}")
     elif(user_ready == 'n'):
         print("Maybe next time!")
     else:
         print("Invalid input!")
         game_start()
 
-def deal_card():
+def deal_card(hand):
    new_card = random.choice(cards)
-   return new_card
+   hand.append(new_card)
+   return hand
   
     
     
@@ -49,12 +55,7 @@ def calculate_score(card_hand):
     return sum(card_hand)
    return total_score
 
-# test_hand1 = [10, 11]
-test_hand2 = [11,6,5]
-
-# print(calculate_score(test_hand1))
-print(calculate_score(test_hand2))
-  
+game_start()
 
 # def hit():
 #     """Draws another card and totals sum"""
