@@ -82,30 +82,31 @@ def game_start():
       print(f"Player score is {player_score}! Game over!")
       game_restart()
     print(f"Your current hand: {player_hand} with a current score of {player_score}")
-    
-    hit_choice = input("Type 'h' to Hit and get another card OR 's' to Stand\n")
-    if(hit_choice == 'h'):
-      print("You decided to hit")
-      deal_card(player_hand)
-      player_score = calculate_score(player_hand)
-      if player_score > 21 or player_score == 0:
-        print(f"Player score is {player_score}! Game over!")
-        game_restart()
-      else:
-        print(f"Your current hand: {player_hand} with a current score of {player_score}")
+    while(True):
+      hit_choice = input("Type 'h' to Hit and get another card OR 's' to Stand\n")
+      if(hit_choice == 'h'):
+        print("You decided to hit")
+        deal_card(player_hand)
+        player_score = calculate_score(player_hand)
+        if player_score > 21 or player_score == 0:
+          print(f"Player score is {player_score}! Game over!")
+          game_restart()
+        else:
+          print(f"Your current hand: {player_hand} with a current score of {player_score}")
 
-    elif(hit_choice == 's'):
-      print("You decided to stand")
-      dealer_score = calculate_score(dealer_hand)
-      if dealer_score < 17:
-         while dealer_score < 17:
-            deal_card(dealer_hand)
-            dealer_score = calculate_score(dealer_hand)
-      if dealer_score > 21:
-        dealer_score = 0
-      compare(dealer_score,player_score)
-      print("Game is over")
-      game_restart()
+      elif(hit_choice == 's'):
+        break
+    print("You decided to stand")
+    dealer_score = calculate_score(dealer_hand)
+    if dealer_score < 17:
+        while dealer_score < 17:
+          deal_card(dealer_hand)
+          dealer_score = calculate_score(dealer_hand)
+    if dealer_score > 21:
+      dealer_score = 0
+    compare(dealer_score,player_score)
+    print("Game is over")
+    game_restart()
     
   elif(user_ready == 'n'):
       print("Maybe next time!")
